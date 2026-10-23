@@ -1,0 +1,9 @@
+{
+  "concurrency": 500,
+  "requests": 2000,
+  "success_rate": 0.9915,
+  "throughput_rps": 52.4,
+  "p50_ms": 8052,
+  "p95_ms": 18870,
+  "p99_ms": 26028
+}

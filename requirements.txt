@@ -1,0 +1,12 @@
+confluent-kafka>=2.5
+qdrant-client>=1.12
+sentence-transformers>=5.0
+prometheus-client>=0.20
+fastapi>=0.116
+uvicorn[standard]>=0.35
+httpx>=0.28
+numpy
+pypdf>=6.0
+langchain-groq>=1.1
+python-dotenv>=1.0
+pytest>=8.0

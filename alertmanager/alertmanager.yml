@@ -1,0 +1,11 @@
+route:
+  receiver: api-webhook
+  group_wait: 0s          # send the first notification immediately (default 30s)
+  group_interval: 5s
+  repeat_interval: 1m
+
+receivers:
+  - name: api-webhook
+    webhook_configs:
+      - url: http://host.docker.internal:8000/admin/alerts
+        send_resolved: true

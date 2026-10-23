@@ -1,0 +1,37 @@
+groups:
+  - name: llmops
+    rules:
+      # p95 over the last 30s, computed from histogram buckets
+      - alert: HighLLMLatency
+        expr: histogram_quantile(0.95, sum(rate(rag_request_seconds_bucket[30s])) by (le)) > 2
+        for: 10s
+        labels:
+          severity: critical
+          action: rollback          # the API rolls back automatically on this label
+        annotations:
+          summary: "p95 /ask latency above 2s"
+
+      - alert: HighErrorRate
+        expr: sum(rate(rag_errors_total[30s])) / clamp_min(sum(rate(rag_requests_total[30s])), 0.001) > 0.10
+        for: 10s
+        labels:
+          severity: critical
+          action: rollback
+        annotations:
+          summary: "More than 10% of /ask requests failing"
+
+      - alert: EmbeddingDrift
+        expr: embedding_drift_score > 0.5
+        for: 1m
+        labels:
+          severity: warning          # no rollback: drift needs a human to look at the data
+        annotations:
+          summary: "User queries drifting away from the indexed documents"
+
+      - alert: IngestionLagging
+        expr: histogram_quantile(0.95, sum(rate(ingest_lag_seconds_bucket[1m])) by (le)) > 30
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "New documents take more than 30s to become searchable"

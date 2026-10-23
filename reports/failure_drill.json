@@ -1,0 +1,7 @@
+{
+  "injected_latency_s": 3.0,
+  "time_to_detect_and_rollback_s": 27.9,
+  "time_to_recover_s": 27.9,
+  "requests_during_drill": 515,
+  "slow_requests_during_incident": 167
+}
